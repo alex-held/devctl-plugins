@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/alex-held/devctl-plugins/pkg/system"
+	"github.com/alex-held/devctl-plugins/pkg/sysutils"
 )
 
 type lazypath string
@@ -77,7 +77,7 @@ func (f lazypathFinder) resolveSubDir(sub string, elem ...string) string {
 // 2. Check if an XDG environment variable is set
 // 3. Fall back to a default.
 func (f lazypathFinder) configRoot(elem ...string) string {
-	runInfo := system.OSRuntimeInfoGetter{}.Get()
+	runInfo := sysutils.OSRuntimeInfoGetter{}.Get()
 
 	if f.finder.GetConfigRootFn != nil {
 		p := f.finder.ConfigRoot()

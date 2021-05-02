@@ -1,3 +1,4 @@
 package plugins
 
-const Version = "v0.0.1"
+// Version of the github.com/alex-held/devctl-plugins package.
+const Version = "v0.0.2"

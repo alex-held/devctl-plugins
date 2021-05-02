@@ -1,4 +1,4 @@
-package system_test
+package sysutils_test
 
 import (
 	"testing"
@@ -6,7 +6,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"github.com/alex-held/devctl-plugins/pkg/system"
+	"github.com/alex-held/devctl-plugins/pkg/sysutils"
 )
 
 func TestRuntimeInfoSuite(t *testing.T) {
@@ -20,10 +20,10 @@ var _ = Describe("RuntimeInfo", func() {
 
 		const os = "darwin"
 		const arch = "amd64"
-		var sut system.RuntimeInfo
+		var sut sysutils.RuntimeInfo
 
 		BeforeEach(func() {
-			sut = system.RuntimeInfo{
+			sut = sysutils.RuntimeInfo{
 				OS:   os,
 				Arch: arch,
 			}
