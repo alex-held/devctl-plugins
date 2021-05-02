@@ -9,6 +9,7 @@ import (
 
 type SDKPlugin interface {
 	plugcmd.Commander
+	Versioner
 
 	plugins.Needer
 	plugcmd.SubCommander

@@ -1,30 +1,32 @@
 package sdk
 
 import (
+	"context"
+
 	"github.com/gobuffalo/plugins/plugcmd"
 )
 
 type Installer interface {
-	Install(version string) error
 	plugcmd.Namer
+	Install(ctx context.Context, version string) error
 }
 
 type Downloader interface {
-	Install(version string) error
 	plugcmd.Namer
+	Download(ctx context.Context, version string) error
 }
 
 type Lister interface {
-	ListInstalled(version string) ([]string, error)
 	plugcmd.Namer
+	ListInstalled(ctx context.Context) ([]string, error)
 }
 
 type Linker interface {
-	Link(version string) error
 	plugcmd.Namer
+	Link(ctx context.Context, version string) error
 }
 
 type User interface {
-	Use(version string) error
 	plugcmd.Namer
+	Use(ctx context.Context, version string) error
 }
