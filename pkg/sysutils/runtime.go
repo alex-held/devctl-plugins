@@ -40,6 +40,14 @@ type RuntimeInfoGetter interface {
 	Get() (info RuntimeInfo)
 }
 
+func GetDefaultRuntimeInfo(args ...*DefaultRuntimeInfoGetter) RuntimeInfo {
+	var getter *DefaultRuntimeInfoGetter
+	if len(args) > 0 {
+		getter = args[0]
+	}
+	return getter.Get()
+}
+
 // Format formats pattern string using the provided args and the runtime info
 // [os] = OS (darwin, linux)
 // [OS] = OS (DARWIN, LINUX)
