@@ -1,4 +1,6 @@
-package cobra
+//go:generate mapgen -name "plug" -zero "plug{}" -type "plug" -import "cobra"
+
+package cmds
 
 import (
 	"encoding/json"
@@ -8,6 +10,8 @@ import (
 
 	"github.com/gobuffalo/events"
 	"github.com/spf13/cobra"
+
+	"github.com/alex-held/devctl-plugins/pkg/plugins"
 )
 
 // NewAvailable returns a fully formed Available type.
@@ -24,9 +28,9 @@ type Available struct {
 }
 
 type plug struct {
-	BuffaloCommand string
-	Cmd            *cobra.Command
-	Plugin         Command
+	DevctlCommand string
+	Cmd           *cobra.Command
+	Plugin        plugins.Command
 }
 
 func (p plug) String() string {
@@ -67,9 +71,9 @@ func (a *Available) Add(bufCmd string, cmd *cobra.Command) error {
 		cmd.Aliases = []string{}
 	}
 	p := plug{
-		BuffaloCommand: bufCmd,
-		Cmd:            cmd,
-		Plugin: Command{
+		DevctlCommand: bufCmd,
+		Cmd:           cmd,
+		Plugin: plugins.Command{
 			Name:          cmd.Use,
 			DevctlCommand: bufCmd,
 			Description:   cmd.Short,
@@ -97,7 +101,7 @@ func (a *Available) Mount(cmd *cobra.Command) {
 // Encode into the required Buffalo plugins available
 // format.
 func (a *Available) Encode(w io.Writer) error {
-	var plugs Commands
+	var plugs plugins.Commands
 	a.plugs.Range(func(_ string, p plug) bool {
 		plugs = append(plugs, p.Plugin)
 		return true
@@ -117,9 +121,9 @@ func (a *Available) Listen(fn func(e events.Event) error) error {
 func (a *Available) ListenFor(rx string, fn func(e events.Event) error) error {
 	cmd := buildListen(fn)
 	p := plug{
-		BuffaloCommand: "events",
-		Cmd:            cmd,
-		Plugin: Command{
+		DevctlCommand: "events",
+		Cmd:           cmd,
+		Plugin: plugins.Command{
 			Name:          cmd.Use,
 			DevctlCommand: "events",
 			Description:   cmd.Short,

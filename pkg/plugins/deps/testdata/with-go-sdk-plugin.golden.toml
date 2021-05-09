@@ -1,0 +1,20 @@
+[[plugin]]
+  binary = "devctl-go-sdk-plugin"
+  go_get = "go get -u github.com/alex-held/devctl-go-sdk-plugin"
+  local = "./plugins/sdk/devctl-go-sdk-plugin"
+  tags = ["devctl-plugin", "sdk", "v1.0.0"]
+
+  [[plugin.commands]]
+    name = "download"
+
+  [[plugin.commands]]
+    name = "list"
+
+  [[plugin.commands]]
+    name = "install"
+
+  [[plugin.commands]]
+    name = "link"
+
+  [[plugin.commands]]
+    name = "use"

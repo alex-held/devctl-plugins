@@ -1,11 +1,11 @@
 [[plugin]]
-binary = "buffalo-heroku"
-go_get = "github.com/gobuffalo/buffalo-heroku"
+  binary = "buffalo-heroku"
+  go_get = "github.com/gobuffalo/buffalo-heroku"
 
 [[plugin]]
-binary = "buffalo-pop"
-go_get = "github.com/gobuffalo/buffalo-pop"
+  binary = "buffalo-pop"
+  go_get = "github.com/gobuffalo/buffalo-pop"
 
 [[plugin]]
-binary = "buffalo-trash"
-go_get = "github.com/markbates/buffalo-trash"
+  binary = "buffalo-trash"
+  go_get = "github.com/markbates/buffalo-trash"

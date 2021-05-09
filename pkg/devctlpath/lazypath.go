@@ -29,6 +29,10 @@ type Pather interface {
 	// ConfigFilePath returns the path of the config.yaml used to configure the app itself
 	ConfigFilePath() string
 
+	// PluginConfigFilePath resolves the plugin configuration
+	// The default is $DEVCTL_ROOT/plugins.toml.
+	PluginConfigFilePath() string
+
 	// ConfigRoot returns the root path of the CLI configuration.
 	ConfigRoot(elem ...string) string
 
