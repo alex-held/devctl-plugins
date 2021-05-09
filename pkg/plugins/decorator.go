@@ -1,4 +1,4 @@
-package cmds
+package plugins
 
 import (
 	"fmt"
@@ -6,23 +6,22 @@ import (
 	"os/exec"
 	"time"
 
+	"github.com/hashicorp/go-hclog"
 	"github.com/spf13/cobra"
 
-	"github.com/alex-held/devctl-plugins/pkg/devctlog"
 	"github.com/alex-held/devctl-plugins/pkg/sysutils"
 )
 
-var _logger devctlog.Logger
-
 func log(name string, fn func() error) error {
 	start := time.Now()
-	defer _logger.Debug(name, time.Now().Sub(start))
+	defer hclog.Default().Debug(name, time.Now().Sub(start))
 	return fn()
 }
 
-// Decorate setup cmds Commands for plugins.
+// Decorate setup cmd Commands for plugins.
 func Decorate(c Command) *cobra.Command {
 	var flags []string
+
 	if len(c.Flags) > 0 {
 		for _, f := range c.Flags {
 			flags = append(flags, f)
@@ -34,14 +33,13 @@ func Decorate(c Command) *cobra.Command {
 		Short:   fmt.Sprintf("[PLUGIN] %s", c.Description),
 		Aliases: c.Aliases,
 		RunE: func(runCmd *cobra.Command, args []string) error {
-			_logger.Debug("executing`devctl-plugin/pkg/plugins/Plugin` decorated as a `cmds.Command`",
+			hclog.Default().Debug("executing`devctl-plugin/pkg/plugins/Plugin` decorated as a `cmds.Command`",
 				"cmd", *runCmd, "args", args)
-
 			plugCmd := c.Name
+
 			if c.UseCommand != "" {
 				plugCmd = c.UseCommand
 			}
-
 			ax := []string{plugCmd}
 			if plugCmd == "-" {
 				ax = []string{}
@@ -51,9 +49,9 @@ func Decorate(c Command) *cobra.Command {
 			ax = append(ax, flags...)
 
 			bin, err := LookPath(c.Binary)
-			_logger.Debug("LookPath finished..", "looked-up-binary", c.Binary, "bin", bin, "err", err)
+			hclog.Default().Debug("LookPath finished..", "looked-up-binary", c.Binary, "bin", bin, "err", err)
 			if err != nil {
-				_logger.Error("LookPath failed to look up binary", "looked-up-binary", c.Binary, "bin", bin, "err", err)
+				hclog.Default().Error("LookPath failed to look up binary", "looked-up-binary", c.Binary, "bin", bin, "err", err)
 				return err
 			}
 

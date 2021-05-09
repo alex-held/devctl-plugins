@@ -2,6 +2,7 @@
 package devctlpath
 
 const devctlConfigFileName = "config.yaml"
+const PluginConfigFileName = "plugins.toml"
 
 type finder struct {
 	GetUserHomeFn   UserHomePathFinder
@@ -23,6 +24,12 @@ func (f *lazypathFinder) ConfigRoot(elem ...string) string { return f.configRoot
 // ConfigFilePath  path where Helm stores configuration.
 func (f *lazypathFinder) ConfigFilePath() string {
 	return f.configRoot(f.cfgName)
+}
+
+// PluginConfigFilePath resolves the plugin configuration
+// The default is $DEVCTL_ROOT/plugins.toml.
+func (f *lazypathFinder) PluginConfigFilePath() string {
+	return f.configRoot(PluginConfigFileName)
 }
 
 // Config returns the path where various application configurations are stored.

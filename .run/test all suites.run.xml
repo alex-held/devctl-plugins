@@ -2,7 +2,7 @@
   <configuration default="false" name="test all suites" type="GoTestRunConfiguration" factoryName="Go Test">
     <module name="devctl-plugins" />
     <working_directory value="$PROJECT_DIR$" />
-    <go_parameters value="tools" />
+    <go_parameters value="tools debug" />
     <useCustomBuildTags value="true" />
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />

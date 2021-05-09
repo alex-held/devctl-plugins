@@ -1,4 +1,4 @@
-package cmds
+package plugins
 
 import (
 	"fmt"
@@ -8,6 +8,7 @@ import (
 
 	"github.com/gobuffalo/envy"
 )
+
 var ErrPluginMissing = fmt.Errorf("plugin is missing")
 
 // LookPath for plugin.
